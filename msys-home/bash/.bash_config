@@ -1,0 +1,6 @@
+#! /bin/bash
+
+# export USE_GIT_PS1=1 # If set, then display git info such as branch name in PS1
+# export SIMPLE_GIT_PS1=1 # If set, omit several pieces of info (mainly for performace increase)
+export DFU_ALIASES_FILE="$HOME/.dfu_aliases" # The location of the aliases file for dfu-flash
+export DIR_FILE="$HOME/.last_dirs"           # The location of the file where the last dirs are saved for cdlast

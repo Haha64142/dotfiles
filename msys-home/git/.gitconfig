@@ -1,0 +1,12 @@
+[user]
+	name = Haha64142
+	email = paul.w64142@gmail.com
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[core]
+	autocrlf = input
+	pager = C:/msys64/usr/bin/less
+[stash]
+	showIncludeUntracked = true

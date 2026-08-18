@@ -1,0 +1,2 @@
+uno=$WINHOME/Documents/Programs/Arduino/USB-Devices/Hex Files/Arduino-usbserial-atmega16u2-Uno-Rev3.hex
+mega=$WINHOME/Documents/Programs/Arduino/USB-Devices/Hex Files/Arduino-usbserial-atmega16u2-Mega2560-Rev3.hex

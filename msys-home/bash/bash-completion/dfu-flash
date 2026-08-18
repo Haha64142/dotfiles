@@ -1,0 +1,40 @@
+_dfu_flash_complete() {
+    local cur prev opts files aliases
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    # File containing aliases (same as your script)
+    local alias_file="$DFU_ALIASES_FILE"
+
+    # Completion for options
+    opts="--help --targets -h -d -v"
+
+    # 1. Complete options
+    if [[ "$cur" == -* ]]; then
+        COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
+        return 0
+    fi
+
+    # 2. If previous arg is -d, show targets
+    if [[ "$prev" == "-d" ]]; then
+        local targets
+        targets=$(dfu-flash --targets 2>/dev/null | tr '\n' ' ')
+        COMPREPLY=( $(compgen -W "$targets" -- "$cur") )
+        return 0
+    fi
+
+    # 3. Complete from .hex files in the current directory
+    files=$(compgen -f -- "$cur" | grep -E "\.hex$" 2>/dev/null)
+
+    # 4. Complete from alias file (left side of key=value)
+    if [[ -r "$alias_file" ]]; then
+        aliases=$(cut -d= -f1 "$alias_file" | tr '\n' ' ')
+    fi
+
+    COMPREPLY=( $(compgen -W "$aliases $files" -- "$cur") )
+    return 0
+}
+
+complete -F _dfu_flash_complete dfu-flash
+complete -F _dfu_flash_complete dfu

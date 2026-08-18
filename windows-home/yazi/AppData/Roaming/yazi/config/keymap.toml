@@ -1,0 +1,9 @@
+[[mgr.prepend_keymap]]
+on = [ "g", "p"]
+run = "cd C:/Users/pwood/Documents/Programs/"
+desc = "Go to Programs"
+
+[[mgr.prepend_keymap]]
+on = [ "g", "m" ]
+run = "cd C:/msys64/home/pwood/"
+desc = "Go to msys home"
