@@ -29,6 +29,51 @@ y() {
     rm -f -- "$tmp"
 }
 
+pdf-convert() {
+    local use_options=false
+    local options=()
+    local files=()
+    for arg in "$@"; do
+        case "$arg" in
+        "" | "-h" | "--help" | "-?")
+            echo 'This is a helper to convert multiple pdfs at once using pdftoppm'
+            echo ''
+            echo 'Usage: pdf-convert <files ...>'
+            echo '       pdf-convert [options] -- <files ...>'
+            echo ''
+            echo "For a list of options run 'pdftoppm -help'"
+            echo ''
+            echo 'You could also just run:'
+            echo '  for file in *.pdf; do pdftoppm "$file" $(basename "${file%.*}")-pic; done'
+            return 0
+            ;;
+        "--")
+            use_options=true
+            ;;
+        esac
+    done
+
+    if $use_options; then
+        while [ $# -gt 0 ]; do
+            if [[ "$1" == "--" ]]; then
+                shift
+                break
+            fi
+            options+=("$1")
+            shift
+        done
+    fi
+
+    while [ $# -gt 0 ]; do
+        files+=("$1")
+        shift
+    done
+
+    for file in "${files[@]}"; do
+        pdftoppm "${options[@]}" "$file" $(basename "${file%.*}")
+    done
+}
+
 localserver() {
     case "$1" in
     "" | "start")
